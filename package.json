@@ -1,0 +1,27 @@
+{
+  "name": "contacts-book",
+  "version": "1.0.0",
+  "description": "Contacts book written in node",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yogeshyadav108098/contacts-book.git"
+  },
+  "author": "Yogesh Yadav",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yogeshyadav108098/contacts-book/issues"
+  },
+  "homepage": "https://github.com/yogeshyadav108098/contacts-book#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "lodash": "^4.17.10",
+    "morgan": "^1.9.0",
+    "q": "^1.5.1",
+    "uuid-logger": "^1.1.1",
+    "yargs": "^11.0.0"
+  }
+}
