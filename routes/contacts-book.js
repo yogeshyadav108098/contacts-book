@@ -1,6 +1,7 @@
 'use strict';
 
 const {bind} = require('../lib/utils');
+const SchemaNames = require('../config/schema-names');
 
 module.exports = (app, controllerObject) => {
     /**
@@ -19,6 +20,7 @@ module.exports = (app, controllerObject) => {
      *   }
      */
     app.post('/contacts-book/v1/contacts/add',
+        bind(controllerObject.common.validator, 'validateSchema')(SchemaNames.contactsBook.contacts.add),
         bind(controllerObject.contactsBook.contacts, 'create'),
         bind(controllerObject.common.response, 'setResponse'),
         bind(controllerObject.common.response, 'sendResponse'),
@@ -58,6 +60,7 @@ module.exports = (app, controllerObject) => {
      * }]
      */
     app.get('/contacts-book/v1/contacts/list',
+        bind(controllerObject.common.validator, 'validateSchema')(SchemaNames.contactsBook.contacts.list),
         bind(controllerObject.contactsBook.contacts, 'list'),
         bind(controllerObject.common.response, 'setResponse'),
         bind(controllerObject.common.response, 'sendResponse'),
@@ -82,6 +85,7 @@ module.exports = (app, controllerObject) => {
      *   }
      */
     app.put('/contacts-book/v1/contacts/update/:id',
+        bind(controllerObject.common.validator, 'validateSchema')(SchemaNames.contactsBook.contacts.update),
         bind(controllerObject.contactsBook.contacts, 'update'),
         bind(controllerObject.common.response, 'setResponse'),
         bind(controllerObject.common.response, 'sendResponse'),
@@ -103,6 +107,7 @@ module.exports = (app, controllerObject) => {
      *   }
      */
     app.delete('/contacts-book/v1/contacts/delete/:id',
+        bind(controllerObject.common.validator, 'validateSchema')(SchemaNames.contactsBook.contacts.delete),
         bind(controllerObject.contactsBook.contacts, 'delete'),
         bind(controllerObject.common.response, 'setResponse'),
         bind(controllerObject.common.response, 'sendResponse'),

@@ -8,6 +8,7 @@ const Error = require('./error');
 const ApiDoc = require('./api-doc');
 const ReadMeGen = require('./readme');
 const Response = require('./response');
+const Validator = require('./validator');
 const Logger = require('../../lib/logger');
 const HealthCheck = require('./health-check');
 
@@ -21,6 +22,7 @@ class Common {
         self.error = new Error(options, self);
         self.apiDoc = new ApiDoc(options, self);
         self.response = new Response(options, self);
+        self.validator = new Validator(options, self);
         self.readMeGen = new ReadMeGen(options, self);
         self.healthCheck = new HealthCheck(options, self);
 
@@ -44,10 +46,13 @@ class Common {
                 return self.apiDoc.init();
             })
             .then(() => {
-                return self.readMeGen.init();
+                return self.response.init();
             })
             .then(() => {
-                return self.response.init();
+                return self.validator.init();
+            })
+            .then(() => {
+                return self.readMeGen.init();
             })
             .then(() => {
                 return self.healthCheck.init();

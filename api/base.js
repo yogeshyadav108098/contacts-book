@@ -371,16 +371,20 @@ class BaseApi {
             self._patternMatchColumns.forEach((field) => {
                 if (options[field] !== undefined) {
                     filters.patternMatch[field] = options[field].toString();
+                    delete filters[field];
                 }
             });
         }
 
-        if (filters.limit < 1) {
-            filters.limit = 20;
+        if (!filters.offset || filters.offset < 0) {
+            filters.offet = EnumStates.DEFAULT_OFFSET;
+        }
+        if (!filters.limit || filters.limit < 1) {
+            filters.limit = EnumStates.DEFAULT_LIMIT;
         }
 
         if (filters.status === undefined) {
-            filters.status = 1;
+            filters.status = EnumStates.DEFAULT_STATUS;
         }
 
         new Q(undefined)
