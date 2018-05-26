@@ -1,6 +1,7 @@
 'use strict';
 
 // 3rd Party
+const _ = require('lodash');
 const Yargs = require('yargs');
 let Argv = Yargs.usage('Usage: $0 [options]')
     .example('$0 -p 1308 -e development', 'Start the service')
@@ -12,24 +13,29 @@ let Argv = Yargs.usage('Usage: $0 [options]')
     .nargs('e', 1)
     .describe('e', 'Node Environment')
     .demandOption(['e'])
+    .alias('l', 'LOG_LEVEL')
+    .nargs('l', 1)
+    .describe('l', 'Log Level')
+    .demandOption(['l'])
     .help('h')
     .alias('h', 'help')
     .epilog('copyright 2018').argv;
 
+// Set environment variables to App
+_.set(process.env, 'PORT', Argv.PORT);
+_.set(process.env, 'ENV', Argv.ENV);
+_.set(process.env, 'LOG_LEVEL', Argv.LOG_LEVEL);
+
 const Q = require('q');
-const _ = require('lodash');
 const Morgan = require('morgan');
 const Express = require('express');
 const BodyParser = require('body-parser');
 
 // Internal
 const Logger = require('./lib/logger');
+const Controller = require('./controller');
 
 const addRequestId = (new (require('uuid-logger'))()).addRequestId;
-
-// Set environment variables to App
-_.set(process.env, 'PORT', Argv.PORT);
-_.set(process.env, 'ENV', Argv.ENV);
 
 // Initialize Express App
 let App = Express();
@@ -39,7 +45,7 @@ App.use(BodyParser.json({
 App.use(BodyParser.urlencoded({
     extended: true,
     limit: '10mb',
-    parameterLimit: '5000'
+    parameterLimit: '1000'
 }));
 
 // Set Static files path
@@ -72,6 +78,12 @@ process.on('uncaughtException', (error) => {
     Logger.error('Uncaught Exception: Take action immediately');
     Logger.error(error);
 });
+
+// Create controller Object
+let controllerObject = new Controller({});
+
+// Expose Routes
+require('./routes')(App, controllerObject);
 
 new Q(undefined)
     .then(() => {
