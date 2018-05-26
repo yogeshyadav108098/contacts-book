@@ -1,27 +1,40 @@
 {
-  "name": "contacts-book",
-  "version": "1.0.0",
-  "description": "Contacts book written in node",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/yogeshyadav108098/contacts-book.git"
-  },
-  "author": "Yogesh Yadav",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/yogeshyadav108098/contacts-book/issues"
-  },
-  "homepage": "https://github.com/yogeshyadav108098/contacts-book#readme",
-  "dependencies": {
-    "express": "^4.16.3",
-    "lodash": "^4.17.10",
-    "morgan": "^1.9.0",
-    "q": "^1.5.1",
-    "uuid-logger": "^1.1.1",
-    "yargs": "^11.0.0"
-  }
+    "name": "contacts-book",
+    "version": "1.0.0",
+    "description": "Contacts book written in node",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/yogeshyadav108098/contacts-book.git"
+    },
+    "author": "Yogesh Yadav",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/yogeshyadav108098/contacts-book/issues"
+    },
+    "homepage": "https://github.com/yogeshyadav108098/contacts-book#readme",
+    "dependencies": {
+        "basic-auth": "^2.0.0",
+        "express": "^4.16.3",
+        "lodash": "^4.17.10",
+        "morgan": "^1.9.0",
+        "mysql": "^2.15.0",
+        "npm": "^6.1.0",
+        "q": "^1.5.1",
+        "rc": "^1.2.7",
+        "sql": "^0.78.0",
+        "tsscmp": "^1.0.5",
+        "uuid-logger": "^1.1.1",
+        "yargs": "^11.0.0"
+    },
+    "devDependencies": {
+        "eslint": "^4.19.1",
+        "eslint-config-google": "^0.9.1"
+    },
+    "engines": {
+        "node": "10.1.0"
+    }
 }
