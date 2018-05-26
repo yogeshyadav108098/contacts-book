@@ -17,6 +17,7 @@
     },
     "homepage": "https://github.com/yogeshyadav108098/contacts-book#readme",
     "dependencies": {
+        "basic-auth": "^2.0.0",
         "express": "^4.16.3",
         "lodash": "^4.17.10",
         "morgan": "^1.9.0",
@@ -24,6 +25,7 @@
         "q": "^1.5.1",
         "rc": "^1.2.7",
         "sql": "^0.78.0",
+        "tsscmp": "^1.0.5",
         "uuid-logger": "^1.1.1",
         "yargs": "^11.0.0"
     },

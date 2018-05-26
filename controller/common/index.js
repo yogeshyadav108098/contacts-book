@@ -4,6 +4,7 @@
 const Q = require('q');
 
 // Internal
+const Auth = require('./auth');
 const Error = require('./error');
 const ApiDoc = require('./api-doc');
 const ReadMeGen = require('./readme');
@@ -19,6 +20,7 @@ class Common {
         let functionPrefix = 'Constructor:';
         Logger.info(filePrefix, functionPrefix, 'Constructing...');
 
+        self.auth = new Auth(options, self);
         self.error = new Error(options, self);
         self.apiDoc = new ApiDoc(options, self);
         self.response = new Response(options, self);
