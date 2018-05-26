@@ -5,7 +5,7 @@ const SchemaNames = require('../config/schema-names');
 
 module.exports = (app, controllerObject) => {
     /**
-     * @api {post} /contacts-book/v1/contacts/add Add
+     * @api {post} /contacts-book/v1/contacts Add
      * @apiName CreateContact
      * @apiGroup Contacts
      *
@@ -19,7 +19,7 @@ module.exports = (app, controllerObject) => {
      *        result: Contact created successfully
      *   }
      */
-    app.post('/contacts-book/v1/contacts/add',
+    app.post('/contacts-book/v1/contacts',
         bind(controllerObject.common.auth, 'authorize'),
         bind(controllerObject.common.validator, 'validateSchema')(SchemaNames.contactsBook.contacts.add),
         bind(controllerObject.contactsBook.contacts, 'create'),
@@ -29,7 +29,7 @@ module.exports = (app, controllerObject) => {
     );
 
     /**
-     * @api {get} /contacts-book/v1/contacts/list List
+     * @api {get} /contacts-book/v1/contacts List
      * @apiName ListContacts
      * @apiGroup Contacts
      *
@@ -60,7 +60,7 @@ module.exports = (app, controllerObject) => {
      *    "updatedAt": "2017-05-26T11:57:37.000Z"
      * }]
      */
-    app.get('/contacts-book/v1/contacts/list',
+    app.get('/contacts-book/v1/contacts',
         bind(controllerObject.common.auth, 'authorize'),
         bind(controllerObject.common.validator, 'validateSchema')(SchemaNames.contactsBook.contacts.list),
         bind(controllerObject.contactsBook.contacts, 'list'),
@@ -70,7 +70,7 @@ module.exports = (app, controllerObject) => {
     );
 
     /**
-     * @api {put} /contacts-book/v1/contacts/update/:id Update
+     * @api {put} /contacts-book/v1/contacts/:id Update
      * @apiName UpdateContacts
      * @apiGroup Contacts
      *
@@ -86,7 +86,7 @@ module.exports = (app, controllerObject) => {
      *        result: Contact edited successfully
      *   }
      */
-    app.put('/contacts-book/v1/contacts/update/:id',
+    app.put('/contacts-book/v1/contacts/:id',
         bind(controllerObject.common.auth, 'authorize'),
         bind(controllerObject.common.validator, 'validateSchema')(SchemaNames.contactsBook.contacts.update),
         bind(controllerObject.contactsBook.contacts, 'update'),
@@ -96,7 +96,7 @@ module.exports = (app, controllerObject) => {
     );
 
     /**
-     * @api {delete} /contacts-book/v1/contacts/delete/:id Delete
+     * @api {delete} /contacts-book/v1/contacts/:id Delete
      * @apiName DeleteContacts
      * @apiGroup Contacts
      *
@@ -109,7 +109,7 @@ module.exports = (app, controllerObject) => {
      *        result: Contact deleted successfully
      *   }
      */
-    app.delete('/contacts-book/v1/contacts/delete/:id',
+    app.delete('/contacts-book/v1/contacts/:id',
         bind(controllerObject.common.auth, 'authorize'),
         bind(controllerObject.common.validator, 'validateSchema')(SchemaNames.contactsBook.contacts.delete),
         bind(controllerObject.contactsBook.contacts, 'delete'),
