@@ -4,7 +4,6 @@
     "description": "Contacts book written in node",
     "main": "app.js",
     "scripts": {
-        "start": "node app -p 1308 -e production -l debug",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
@@ -20,6 +19,8 @@
     "dependencies": {
         "basic-auth": "^2.0.0",
         "express": "^4.16.3",
+        "heroku": "^7.0.60",
+        "heroku-cli": "^7.0.9",
         "lodash": "^4.17.10",
         "morgan": "^1.9.0",
         "mysql": "^2.15.0",
