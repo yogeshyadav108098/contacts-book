@@ -4,25 +4,17 @@
 const Q = require('q');
 
 // Internal
-const Error = require('./error');
-const ApiDoc = require('./api-doc');
-const ReadMeGen = require('./readme');
-const Response = require('./response');
+const Contacts = require('./contacts');
 const Logger = require('../../lib/logger');
-const HealthCheck = require('./health-check');
 
-const filePrefix = 'Controller: Common:';
-class Common {
+const filePrefix = 'Controller: Contacts-Book:';
+class ContactsBook {
     constructor(options, parentController) {
         let self = this;
         let functionPrefix = 'Constructor:';
         Logger.info(filePrefix, functionPrefix, 'Constructing...');
 
-        self.error = new Error(options, self);
-        self.apiDoc = new ApiDoc(options, self);
-        self.response = new Response(options, self);
-        self.readMeGen = new ReadMeGen(options, self);
-        self.healthCheck = new HealthCheck(options, self);
+        self.contacts = new Contacts(options, self);
 
         Logger.info(filePrefix, functionPrefix, 'Constructed');
     }
@@ -38,19 +30,7 @@ class Common {
                 return Q.resolve();
             })
             .then(() => {
-                return self.error.init();
-            })
-            .then(() => {
-                return self.apiDoc.init();
-            })
-            .then(() => {
-                return self.readMeGen.init();
-            })
-            .then(() => {
-                return self.response.init();
-            })
-            .then(() => {
-                return self.healthCheck.init();
+                return self.contacts.init();
             })
             .then(() => {
                 Logger.info(filePrefix, functionPrefix, 'Initiated');
@@ -63,4 +43,4 @@ class Common {
     }
 }
 
-module.exports = Common;
+module.exports = ContactsBook;

@@ -8,7 +8,7 @@ const ResponseCodes = require('../../constants/response-codes');
 
 const filePrefix = 'Controller: Response:';
 class Response {
-    constructor(options, controller) {
+    constructor(options, parentController) {
         let functionPrefix = 'Constructor:';
         Logger.info(filePrefix, functionPrefix, 'Constructing...');
         Logger.info(filePrefix, functionPrefix, 'Constructed');

@@ -10,7 +10,7 @@ const Logger = require('../../lib/logger');
 
 const filePrefix = 'Controller: ApiDoc:';
 class ApiDoc {
-    constructor(options, controller) {
+    constructor(options, parentController) {
         let functionPrefix = 'Constructor:';
         Logger.info(filePrefix, functionPrefix, 'Constructing...');
         Logger.info(filePrefix, functionPrefix, 'Constructed');

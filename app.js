@@ -87,6 +87,10 @@ require('./routes')(App, controllerObject);
 
 new Q(undefined)
     .then(() => {
+        // Init Controller
+        return controllerObject.init({});
+    })
+    .then(() => {
         // Run the service
         App.listen(_.get(process.env, 'PORT'), () => {
             Logger.info(

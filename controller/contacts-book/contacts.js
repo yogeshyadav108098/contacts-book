@@ -1,16 +1,22 @@
 'use strict';
 
+// Internal
 const Q = require('q');
-const _ = require('lodash');
-
+const Base = require('../base');
 const Logger = require('../../lib/logger');
-const ResponseCodes = require('../../constants/response-codes');
+const ContactsApi = require('../../api/contacts-book/contacts');
 
-const filePrefix = 'Controller: HealthCheck:';
-class HealthCheck {
+const controllerOptions = {
+    table: 'Contacts',
+    api: ContactsApi
+};
+const filePrefix = 'Controller: Contacts:';
+
+class Contacts extends Base {
     constructor(options, parentController) {
         let functionPrefix = 'Constructor:';
         Logger.info(filePrefix, functionPrefix, 'Constructing...');
+        super(controllerOptions);
         Logger.info(filePrefix, functionPrefix, 'Constructed');
     }
 
@@ -20,19 +26,6 @@ class HealthCheck {
         Logger.info(filePrefix, functionPrefix, 'Initiated');
         return Q.resolve();
     }
+};
 
-    healthCheck(req, res, next) {
-        let responseMessage = {
-            result: 'OK'
-        };
-
-        _.set(req, 'lastMiddlewareResponse', {
-            status: ResponseCodes.OK.status,
-            respToSend: responseMessage
-        });
-
-        Logger.info('HealthCheck completed: Working fine');
-        return next();
-    }
-}
-module.exports = HealthCheck;
+module.exports = Contacts;

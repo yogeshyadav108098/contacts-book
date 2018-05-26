@@ -7,7 +7,7 @@ const ResponseCodes = require('../../constants/response-codes');
 
 const filePrefix = 'Controller: Error:';
 class Error {
-    constructor(options, controller) {
+    constructor(options, parentController) {
         let functionPrefix = 'Constructor:';
         Logger.info(filePrefix, functionPrefix, 'Constructing...');
         Logger.info(filePrefix, functionPrefix, 'Constructed');
@@ -15,8 +15,8 @@ class Error {
 
     init(options) {
         let functionPrefix = 'Init:';
-        Logger.debug(filePrefix, functionPrefix, 'Initiating...');
-        Logger.debug(filePrefix, functionPrefix, 'Initiated');
+        Logger.info(filePrefix, functionPrefix, 'Initiating...');
+        Logger.info(filePrefix, functionPrefix, 'Initiated');
         return Q.resolve();
     }
 
