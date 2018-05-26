@@ -4,7 +4,7 @@
 const Q = require('q');
 const Base = require('../base');
 const Logger = require('../../lib/logger');
-const ContactsApi = require('../../api/contacts-book/contacts');
+const ContactsApi = new (require('../../api/contacts-book/contacts'));
 
 const controllerOptions = {
     table: 'Contacts',

@@ -22,7 +22,7 @@ class BaseApi {
         this._model = apiOptions.model;
 
         let createColumns = [];
-        this._columns.forEach(function(column) {
+        this._columns.forEach((column) => {
             if (column === 'id') {
                 return;
             }
@@ -70,7 +70,7 @@ class BaseApi {
                 fields: {}
             };
 
-            self._columns.forEach(function(field) {
+            self._columns.forEach((field) => {
                 if (options[field] !== undefined) {
                     createOptions.fields[field] = options[field];
                 }
@@ -87,18 +87,18 @@ class BaseApi {
             };
 
             new Q(undefined)
-                .then(function() {
+                .then(() => {
                     Logger.info(filePrefix, functionPrefix, JSON.stringify(createOptions));
                     return self._model.insert(createOptions);
                 })
-                .then(function(result) {
+                .then((result) => {
                     return deferred.resolve(result);
                 })
-                .fail(function(error) {
+                .fail((error) => {
                     return deferred.reject(error);
                 });
         } else {
-            let check = filterTemp.some(function(key) {
+            let check = filterTemp.some((key) => {
                 return (options[key] === undefined);
             });
 
@@ -112,18 +112,18 @@ class BaseApi {
                 );
             }
 
-            filterTemp.forEach(function(filter) {
+            filterTemp.forEach((filter) => {
                 if (options[filter] !== undefined) {
                     filters[filter] = options[filter];
                 }
             });
 
             new Q()
-                .then(function() {
+                .then(() => {
                     Logger.info(filePrefix, functionPrefix, JSON.stringify(filters));
                     return self._model.list(filters);
                 })
-                .then(function(result) {
+                .then((result) => {
                     // Rows already exists
                     if (result && result.length > 0) {
                         if (result[0].status) {
@@ -142,7 +142,7 @@ class BaseApi {
                             updateOptions.filters = filters;
                             updateOptions.fields = {};
 
-                            self._createColumns.forEach(function(field) {
+                            self._createColumns.forEach((field) => {
                                 if (options[field] !== undefined) {
                                     updateOptions.fields[field] = options[field];
                                 }
@@ -161,19 +161,19 @@ class BaseApi {
                                 );
                             };
 
-                            new Q(undefined)
-                                .then(function() {
+                            new Q()
+                                .then(() => {
                                     Logger.info(filePrefix, functionPrefix, JSON.stringify(updateOptions));
                                     return self._model.bulkUpdate(updateOptions);
                                 })
-                                .then(function(response) {
+                                .then((response) => {
                                     return deferred.resolve({
                                         insertId: result[0].id,
                                         affectedRows: response,
                                         changedRows: response
                                     });
                                 })
-                                .fail(function(error) {
+                                .fail((error) => {
                                     return deferred.reject(error);
                                 });
                         }
@@ -182,7 +182,7 @@ class BaseApi {
                             fields: {}
                         };
 
-                        self._createColumns.forEach(function(field) {
+                        self._createColumns.forEach((field) => {
                             if (options[field] !== undefined) {
                                 createOptions.fields[field] = options[field];
                             }
@@ -200,19 +200,19 @@ class BaseApi {
                         };
 
                         new Q(undefined)
-                            .then(function() {
+                            .then(() => {
                                 Logger.info(filePrefix, functionPrefix, JSON.stringify(createOptions));
                                 return self._model.insert(createOptions);
                             })
-                            .then(function(result) {
+                            .then((result) => {
                                 return deferred.resolve(result);
                             })
-                            .fail(function(error) {
+                            .fail((error) => {
                                 return deferred.reject(error);
                             });
                     }
                 })
-                .fail(function(error) {
+                .fail((error) => {
                     return deferred.reject(error);
                 });
         }
@@ -223,18 +223,18 @@ class BaseApi {
         const functionPrefix = 'Delete:';
         let self = this;
         let deferred = Q.defer();
-        new Q(undefined)
-            .then(function() {
+        new Q()
+            .then(() => {
                 Logger.info(filePrefix, functionPrefix, JSON.stringify(options));
                 return self._model.delete(options);
             })
-            .then(function(result) {
+            .then((result) => {
                 return deferred.resolve({
                     id: options.id,
                     changedRows: result
                 });
             })
-            .fail(function(error) {
+            .fail((error) => {
                 return deferred.reject(error);
             });
 
@@ -263,7 +263,7 @@ class BaseApi {
         updateOptions.fields = {};
 
         let self = this;
-        self._updatableColumns.forEach(function(field) {
+        self._updatableColumns.forEach((field) => {
             if (options[field] !== undefined) {
                 updateOptions.fields[field] = options[field];
             }
@@ -280,15 +280,15 @@ class BaseApi {
             );
         };
 
-        new Q(undefined)
-            .then(function() {
+        new Q()
+            .then(() => {
                 Logger.info(filePrefix, functionPrefix, JSON.stringify(updateOptions));
                 return self._model.bulkUpdate(updateOptions);
             })
-            .then(function(result) {
+            .then((result) => {
                 return deferred.resolve(result);
             })
-            .fail(function(error) {
+            .fail((error) => {
                 return deferred.reject(error);
             });
 
@@ -298,7 +298,11 @@ class BaseApi {
     list(options, callback) {
         const functionPrefix = 'List:';
         if (!callback) {
-            callback = function(error, result) { };
+            callback = (error, result) => { };
+        }
+
+        if (options && !options.status) {
+            options.status = 1;
         }
 
         let deferred = Q.defer();
@@ -321,9 +325,8 @@ class BaseApi {
         }
 
         let filters = {};
-
         let self = this;
-        self._columns.forEach(function(field) {
+        self._columns.forEach((field) => {
             if (options[field] !== undefined && !_.isObject(options[field])) {
                 filters[field] = options[field].toString().split(',');
             } else if (options[field] !== undefined && _.isArray(options[field]) && _.isObject(options[field])) {
@@ -351,13 +354,13 @@ class BaseApi {
             );
         };
 
-        self._dbFields.forEach(function(field) {
+        self._dbFields.forEach((field) => {
             if (options[field] !== undefined) {
                 filters[field] = options[field];
             }
         });
 
-        Object.keys(self._restrictedColumns).forEach(function(field) {
+        Object.keys(self._restrictedColumns).forEach((field) => {
             if (options[field] === undefined) {
                 filters[field] = self._restrictedColumns[field];
             }
@@ -365,7 +368,7 @@ class BaseApi {
 
         if (options.patternMatch) {
             filters.patternMatch = {};
-            self._patternMatchColumns.forEach(function(field) {
+            self._patternMatchColumns.forEach((field) => {
                 if (options[field] !== undefined) {
                     filters.patternMatch[field] = options[field].toString();
                 }
@@ -381,15 +384,15 @@ class BaseApi {
         }
 
         new Q(undefined)
-            .then(function() {
+            .then(() => {
                 Logger.info(filePrefix, functionPrefix, JSON.stringify(filters));
                 return self._model.list(filters);
             })
-            .then(function(result) {
+            .then((result) => {
                 deferred.resolve(result);
                 return callback(null, result);
             })
-            .fail(function(error) {
+            .fail((error) => {
                 deferred.reject(error);
                 return callback(error);
             });
@@ -416,7 +419,7 @@ class BaseApi {
         updateOptions.fields = {};
 
         let self = this;
-        self._columns.forEach(function(key) {
+        self._columns.forEach((key) => {
             if (options.filters[key] !== undefined) {
                 updateOptions.filters[key] = options.filters[key];
             }
@@ -433,7 +436,7 @@ class BaseApi {
             );
         };
 
-        self._updatableColumns.forEach(function(key) {
+        self._updatableColumns.forEach((key) => {
             if (options.fields[key] !== undefined) {
                 updateOptions.fields[key] = options.fields[key];
             }
@@ -450,15 +453,15 @@ class BaseApi {
             );
         };
 
-        new Q(undefined)
-            .then(function() {
+        new Q()
+            .then(() => {
                 Logger.info(filePrefix, functionPrefix, JSON.stringify(updateOptions));
                 return self._model.bulkUpdate(updateOptions);
             })
-            .then(function(result) {
+            .then((result) => {
                 return deferred.resolve(result);
             })
-            .fail(function(error) {
+            .fail((error) => {
                 return deferred.reject(error);
             });
 

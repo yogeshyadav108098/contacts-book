@@ -2,7 +2,7 @@
 
 const {bind} = require('../lib/utils');
 
-module.exports = function(app, controllerObject) {
+module.exports = (app, controllerObject) => {
     /**
      * @api {get} /contacts-book/_status Health Check Status
      * @apiName HealthCheckStatus

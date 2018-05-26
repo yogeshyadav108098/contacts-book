@@ -2,6 +2,7 @@
 
 // Internal
 const Base = require('../base');
+const Logger = require('../../lib/logger');
 const ContactsModel = require('../../model/contacts-book/contacts');
 const ContactsTable = require('../../config/tables/contacts-book/contacts');
 

@@ -1,6 +1,6 @@
 CREATE TABLE contacts(
     id int(12) unsigned NOT NULL AUTO_INCREMENT,
-    name varchar(255),
+    name varchar(255) NOT NULL,
     email varchar(255),
     gender ENUM('MALE', 'FEMALE') NOT NULL DEFAULT 'MALE',
     status tinyint(3) NOT NULL DEFAULT 1,
@@ -11,4 +11,5 @@ CREATE TABLE contacts(
     KEY idxName (name),
     KEY idxStatus (status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Contacts info';
+
 

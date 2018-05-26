@@ -19,11 +19,11 @@ class BaseController {
         let self = this;
         let options = req.body.data || req.body;
 
-        new Q(undefined)
-            .then(function(undefined) {
-                return self._api.basic.insert(options);
+        new Q()
+            .then(() => {
+                return self._api.insert(options);
             })
-            .then(function(result) {
+            .then((result) => {
                 // Rare scenario, when no error but also no result
                 if (result === undefined) {
                     return Response.sendFailure(
@@ -49,7 +49,7 @@ class BaseController {
 
                 return next();
             })
-            .fail(function(error) {
+            .fail((error) => {
                 Logger.error(error);
                 if (
                     error.toString().indexOf('ER_DUP_ENTRY') > -1 ||
@@ -89,10 +89,10 @@ class BaseController {
         };
 
         new Q(undefined)
-            .then(function(undefined) {
-                return self._api.basic.delete(options);
+            .then(() => {
+                return self._api.delete(options);
             })
-            .then(function(result) {
+            .then((result) => {
                 // Rare scenario, when no error but also no result
                 if (result === undefined) {
                     return Response.sendFailure(
@@ -118,7 +118,7 @@ class BaseController {
                 _.set(req, 'lastMiddlewareResult', result);
                 return next();
             })
-            .fail(function(error) {
+            .fail((error) => {
                 Logger.error(error);
                 return Response.sendFailure(
                     next,
@@ -139,11 +139,11 @@ class BaseController {
             filters = _.get(req, 'body');
         }
 
-        new Q(undefined)
-            .then(function(undefined) {
-                return self._api.basic.list(filters);
+        new Q()
+            .then(() => {
+                return self._api.list(filters);
             })
-            .then(function(result) {
+            .then((result) => {
                 // Rare scenario, when no error but also no result
                 if (result === undefined) {
                     return Response.sendFailure(
@@ -163,7 +163,7 @@ class BaseController {
                 _.set(req, 'lastMiddlewareResult', result);
                 return next();
             })
-            .fail(function(error) {
+            .fail((error) => {
                 Logger.error(error);
                 return Response.sendFailure(
                     next,
@@ -193,11 +193,11 @@ class BaseController {
 
         let options = req.body;
         options.id = id;
-        new Q(undefined)
-            .then(function(undefined) {
-                return self._api.basic.update(options);
+        new Q()
+            .then(() => {
+                return self._api.update(options);
             })
-            .then(function(result) {
+            .then((result) => {
                 // Rare scenario, when no error but also no result
                 if (result === undefined) {
                     return Response.sendFailure(
@@ -222,7 +222,7 @@ class BaseController {
                 _.set(req, 'lastMiddlewareResult', result);
                 return next();
             })
-            .fail(function(error) {
+            .fail((error) => {
                 Logger.error(error);
                 return Response.sendFailure(
                     next,

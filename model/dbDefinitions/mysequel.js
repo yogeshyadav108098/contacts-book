@@ -41,7 +41,7 @@ module.exports = function(opt) {
     let enqueued = 0;
 
     if (urlOpts.protocol != 'mysql:') {
-        console.error('invalid dialect ' + urlOpts.protocol + ' in ' + opt.url);
+        console.error('Invalid dialect ' + urlOpts.protocol + ' in ' + opt.url);
     }
 
     self.open = function() {
