@@ -1,6 +1,7 @@
 'use strict';
 
 const Q = require('q');
+const _ = require('lodash');
 const AjvModule = require('ajv');
 const Schemas = require('../../schemas');
 const Logger = require('../../lib/logger');
@@ -42,7 +43,8 @@ class Validator {
     validateSchema(schemaName) {
         let self = this;
         return (req, res, next) => {
-            let valid = Ajv.validate(schemaName, req.body);
+            let bodyReceived = _.merge({}, req.query, req.params, req.body);
+            let valid = Ajv.validate(schemaName, bodyReceived);
             if (!valid) {
                 return Response.sendFailure(next, ResponseCodes.custom(
                     'Schema Validation Failed: Errors: ' + JSON.stringify(self.errorResponse(Ajv.errors)),

@@ -21,6 +21,10 @@ module.exports = {
             gender: {
                 enum: ['FEMALE', 'MALE'],
                 description: 'Gender of the contact'
+            },
+            status: {
+                enum: ['1'],
+                description: 'Status of the contact'
             }
         },
         required: [
@@ -34,6 +38,11 @@ module.exports = {
         description: 'Editing a contact',
         type: 'object',
         properties: {
+            id: {
+                type: 'string',
+                pattern: '^[0-9]+$',
+                description: 'ID of the contact'
+            },
             name: {
                 type: 'string',
                 maxLength: 256,
@@ -50,8 +59,9 @@ module.exports = {
                 description: 'Gender of the contact'
             },
             status: {
-                type: ['string', 'integer'],
-                maxLength: 2,
+                type: ['string'],
+                maxLength: 1,
+                pattern: '^[0-1]$',
                 description: 'Status of Contact'
             }
         },
@@ -64,6 +74,11 @@ module.exports = {
         description: 'Deleting a contact',
         type: 'object',
         properties: {
+            id: {
+                type: 'string',
+                pattern: '^[0-9]+$',
+                description: 'ID of the contact'
+            }
         },
         additionalProperties: false,
         minProperties: 0
@@ -74,7 +89,32 @@ module.exports = {
         description: 'Listing contacts',
         type: 'object',
         properties: {
-
+            id: {
+                type: 'string',
+                pattern: '^[0-9]+$',
+                description: 'ID of the contact'
+            },
+            name: {
+                type: 'string',
+                maxLength: 256,
+                description: 'Name of the contact'
+            },
+            email: {
+                type: 'string',
+                maxLength: 256,
+                format: 'email',
+                description: 'Email of the contact'
+            },
+            gender: {
+                enum: ['FEMALE', 'MALE'],
+                description: 'Gender of the contact'
+            },
+            status: {
+                type: ['string'],
+                maxLength: 3,
+                pattern: '^[0-1]?[,]?[0,1]$',
+                description: 'Status of Contact'
+            }
         },
         additionalProperties: false,
         minProperties: 0

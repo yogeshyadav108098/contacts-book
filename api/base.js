@@ -301,7 +301,7 @@ class BaseApi {
             callback = (error, result) => { };
         }
 
-        if (options && !options.status) {
+        if (options && options.status === undefined) {
             options.status = 1;
         }
 

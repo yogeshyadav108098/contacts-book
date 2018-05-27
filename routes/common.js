@@ -47,7 +47,7 @@ module.exports = (app, controllerObject) => {
      * }
      */
     app.get(
-        '/contacts-book/readme',
+        '/contacts-book/readMe',
         bind(controllerObject.common.apiDoc, 'runApiDoc'),
         bind(controllerObject.common.readMeGen, 'runReadme'),
         bind(controllerObject.common.response, 'setResponse'),

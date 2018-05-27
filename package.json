@@ -4,7 +4,17 @@
     "description": "Contacts book written in node",
     "main": "app.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "start": "node app.js",
+        "test": "nyc --reporter=html --reporter=text --all mocha --recursive test/",
+        "testChangedFiles": "nyc --reporter=html --reporter=text mocha"
+    },
+    "nyc": {
+        "exclude": [
+            "apiDocs/**",
+            "coverage/**",
+            "node_modules/**",
+            "resources/**"
+        ]
     },
     "repository": {
         "type": "git",
@@ -32,7 +42,12 @@
     },
     "devDependencies": {
         "eslint": "^4.19.1",
-        "eslint-config-google": "^0.9.1"
+        "eslint-config-google": "^0.9.1",
+        "nyc": "^11.8.0",
+        "randomstring": "^1.1.5",
+        "should": "^13.2.1",
+        "sleep": "^5.1.1",
+        "supertest": "^3.1.0"
     },
     "engines": {
         "node": "10.1.0"
