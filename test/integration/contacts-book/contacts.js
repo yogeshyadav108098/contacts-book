@@ -310,6 +310,45 @@ describe('Contacts Integration test cases\n', () => {
                 });
         });
 
+        it('Should list contacts (beforeID): SUCCESS', (done) => {
+            SupertTest(App)
+                .get('/contacts-book/v1/contacts?' + 'beforeId=' + contact.id + '&status=0,1')
+                .set('Authorization', 'Basic eW9nZXNoeWFkYXY6eW9nZXNoeWFkYXY=')
+                .end((error, response) => {
+                    Should.not.exist(error);
+                    Should(response.statusCode).be.exactly(200);
+                    Should(response.body).instanceof(Array);
+                    Should(response.body.length).be.greaterThanOrEqual(0);
+                    done();
+                });
+        });
+
+        it('Should list contacts (afterId): SUCCESS', (done) => {
+            SupertTest(App)
+                .get('/contacts-book/v1/contacts?' + 'afterId=1' + '&status=0,1')
+                .set('Authorization', 'Basic eW9nZXNoeWFkYXY6eW9nZXNoeWFkYXY=')
+                .end((error, response) => {
+                    Should.not.exist(error);
+                    Should(response.statusCode).be.exactly(200);
+                    Should(response.body).instanceof(Array);
+                    Should(response.body.length).be.greaterThanOrEqual(0);
+                    done();
+                });
+        });
+
+        it('Should list contacts (columns specified): SUCCESS', (done) => {
+            SupertTest(App)
+                .get('/contacts-book/v1/contacts?' + 'columns=name,email' + '&status=0,1')
+                .set('Authorization', 'Basic eW9nZXNoeWFkYXY6eW9nZXNoeWFkYXY=')
+                .end((error, response) => {
+                    Should.not.exist(error);
+                    Should(response.statusCode).be.exactly(200);
+                    Should(response.body).instanceof(Array);
+                    Should(response.body.length).be.greaterThanOrEqual(0);
+                    done();
+                });
+        });
+
         it('Should list contacts (id): PRECONDITION_FAILED', (done) => {
             SupertTest(App)
                 .get('/contacts-book/v1/contacts?' + 'id=' + 'Undefined' + '&status=0,1')
