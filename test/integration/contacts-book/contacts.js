@@ -1,9 +1,13 @@
 'use strict';
 
+// 3rd Party
 const Should = require('should');
 const SupertTest = require('supertest');
-const App = require('../../../app-test');
 const RandomString = require('randomstring');
+
+// Internal
+const App = require('../../../app-test');
+
 
 describe('Contacts Integration test cases\n', () => {
     let contact = {
